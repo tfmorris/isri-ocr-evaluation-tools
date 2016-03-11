@@ -1,1 +1,1 @@
-cc -I../Modules -O -o accuracy accuracy.c ../Modules/Lib.a
+cc -I../Modules -O -o accuracy accuracy.c -L../Modules/ -lmodules

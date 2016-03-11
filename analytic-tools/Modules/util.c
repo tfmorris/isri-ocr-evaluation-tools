@@ -24,7 +24,7 @@
 
 #include <signal.h>
 
-#ifdef unix
+#ifndef WINDOWS
 #include <sys/types.h>
 #include <sys/stat.h>
 #else
@@ -41,7 +41,7 @@ void (*usage_routine)();
 
 void (*cleanup_routine)();
 
-FILE *errfile = stderr;
+FILE *errfile = NULL;
 int errstatus = 1;
 
 static short tempfile_id;
@@ -266,6 +266,9 @@ void error(message, exit)
 char *message;
 Boolean exit;
 {
+  if (errfile == NULL) {
+    errfile = stderr;
+  }
     fprintf(errfile, "%s: %s\n", exec_name, message);
     if (exit)
 	quit(errstatus);
@@ -277,6 +280,9 @@ char *message;
 int status;
 Boolean exit;
 {
+  if (errfile == NULL) {
+    errfile = stderr;
+  }
     fprintf(errfile, "%s: %s, status = %d\n", exec_name, message, status);
     if (exit)
 	quit(errstatus);
@@ -287,6 +293,9 @@ void error_string(message, string, exit)
 char *message, *string;
 Boolean exit;
 {
+  if (errfile == NULL) {
+    errfile = stderr;
+  }
     fprintf(errfile, "%s: %s \"%s\"\n", exec_name, message, string);
     if (exit)
 	quit(errstatus);

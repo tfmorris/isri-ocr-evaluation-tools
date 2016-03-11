@@ -1,1 +1,1 @@
-cc -I../Modules -O -o wordacc wordacc.c ../Modules/Lib.a
+cc -I../Modules -O -o wordacc wordacc.c -L../Modules/ -lmodules
